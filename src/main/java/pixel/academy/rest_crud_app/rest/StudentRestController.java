@@ -1,5 +1,6 @@
 package pixel.academy.rest_crud_app.rest;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,14 +14,20 @@ import java.util.List;
 
 public class StudentRestController {
 
-    @GetMapping("/students")
-    public List<Student> getStudents(){
+    private List<Student> theStudents;
 
-        List<Student> theStudents = new ArrayList<>();
+    @PostConstruct
+    public void loadData(){
+         theStudents = new ArrayList<>();
 
         theStudents.add(new Student("Munteanu", "Eugen"));
         theStudents.add(new Student("Ojog", "Maria"));
         theStudents.add(new Student("Gonzales", "Pedro"));
+    }
+
+    @GetMapping("/students")
+    public List<Student> getStudents(){
+
         return theStudents;
     }
 }
